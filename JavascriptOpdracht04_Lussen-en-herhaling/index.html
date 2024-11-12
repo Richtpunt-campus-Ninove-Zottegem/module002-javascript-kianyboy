@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raad het Getal Spel</title>
+</head>
+<body>
+    <h2>Raad het Getal Spel</h2>
+    <p>Raad het geheime getal tussen 1 en 100. Je hebt meerdere pogingen!</p>
+
+    <input type="number" id="guess" placeholder="Voer je gok in">
+    <button onclick="startSpel()">Gok!</button>
+
+    <p id="resultaat"></p>
+
+    <script>
+        //Variablen ophalen
+        let getal = Math.floor(Math.random() * 100) + 1; //Random getal genereren
+        let pogingen = 10; // Pogingen gelijk zetten aan 10
+        let resultaat = document.getElementById("resultaat");//HTML ophalen waar resultaat in moet komen
+        let guess = document.getElementById("guess"); //HTML ophalen waar gok in moet komen
+
+        //functie die elke keer het spel start
+        function startSpel() {
+        //controleert of de gegokte waarde hoger is 
+    if (guess.value > getal) {
+        resultaat.innerHTML = "Je hebt nog " + " "+ pogingen + " pogingen" // veranderd in de html code de tekst
+        //controleert of de gegokte waarde lager is
+        } else if (guess.value < getal) {
+            resultaat.innerHTML = "Je hebt nog" + " " + pogingen + " pogingen"// veranderd in de html code de tekst
+            //Kijkt of de gegokte waarde overeenkomt met het random getal
+            } else {
+                resultaat.innerHTML = "Gefeliciteerd! Je hebt het getal geraden!";// veranderd in de html code de tekst
+                }
+                pogingen--; //vermindert de pogingen met 1
+                // Kijkt of het aantal pogingen gelijk is aan 0
+                if (pogingen == 0) {
+                    resultaat.innerHTML = "Helaas, je hebt het getal niet geraden! Het getal was" + " " + getal //als code gelijk is aan 1 dan wordt de tekst in de html code veranderd
+                    pogingen = 10;//pogingen worden terug gezet naar 10
+                    getal = Math.floor(Math.random() * 100) + 1; //genereerd een nieuw random getal 
+                    }
+
+            }
+    </script>
+</body>
+</html>
