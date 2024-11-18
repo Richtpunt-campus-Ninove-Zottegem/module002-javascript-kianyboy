@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boodschappenlijst</title>
+    <style>
+        .afgestreept {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h2>Boodschappenlijst</h2>
+    <input type="text" id="item" placeholder="Voer een item in">
+    <button onclick="voegItemToe()">Toevoegen</button>
+    <button onclick="verwijderItems()">Verwijderen</button>
+    <ul id="boodschappenlijst"></ul>
+
+    <script>
+        //Functie oproepen Voeg item toe
+        function voegItemToe() {
+            var item = document.getElementById("item").value; //Input ophalen
+            var boodschappenlijst = document.getElementById("boodschappenlijst"); // referentie naar de lijst 
+            // controleren op lege invoer
+            if (item.trim() !== "") {
+                //Nieuwe list aanmaken 
+                var li = document.createElement("li");
+                //Maakt een checkbox aan 
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";// type v/d input naar checkbox veranderen 
+                //Zorgt ervoor dat je kunt afstrepen a.d.h.v. event listener
+                checkbox.addEventListener("change", function() {
+                    if (checkbox.checked) {
+                        li.classList.add("afgestreept");
+                    } else {
+                        li.classList.remove("afgestreept");
+                    }
+                });
+                //voegt checkbox toe aan de list 
+                li.appendChild(checkbox);
+                //Voegt txt toe aan de list 
+                li.appendChild(document.createTextNode(" " + item));
+                //Voegt de list toe aan het boodschappenlijstje 
+                boodschappenlijst.appendChild(li);
+
+                //Maakt het inputveld leeg na het toevoegen
+                document.getElementById("item").value = "";
+            }
+        }
+        //Functie voor het verwijderen van de items 
+        function verwijderItems() {
+            //Haalt de boodschappenlijst op 
+            var boodschappenlijst = document.getElementById("boodschappenlijst");
+            var items = boodschappenlijst.querySelectorAll("li");
+            //Controleren welke items afestreept zijn
+            //Verwijderd alleen de afgestreepte items
+            items.forEach(function(item) {
+                if (item.classList.contains("afgestreept")) {
+                    boodschappenlijst.removeChild(item);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
